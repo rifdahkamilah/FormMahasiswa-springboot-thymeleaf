@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Student Data</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+</head>
+<body style="background-color: thistle; font-family: Cambria, sans-serif;">
+	<div class="container my-2">
+	<h1 style="color: darkmagenta;" class="text-uppercase" align="center">Student Data</h1>
+	
+	<a th:href = "@{/showNewMahasiswaForm}" class="btn btn-info btn-sm mb-3"> Add Student </a>
+	
+	<table align="center" border="1" class="table table-light table-striped table-responsive-md">
+		<thead align="center">
+			<tr>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=nama&sortDir=' + ${reverseSortDir}}">
+						Name </a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=nim&sortDir=' + ${reverseSortDir}}"> 
+						Student ID Number </a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=alamat&sortDir=' + ${reverseSortDir}}">
+						Address </a>
+				</th>
+				<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=tanggalLahir&sortDir=' + ${reverseSortDir}}">
+						Date of Birth </a>
+				</th>
+				<th> Actions </th>
+			</tr>
+		</thead>
+		<tbody align="center">
+			<tr th:each="mahasiswa : ${listMahasiswa}">
+				<td th:text="${mahasiswa.nama}"></td>
+				<td th:text="${mahasiswa.nim}"></td>
+				<td th:text="${mahasiswa.alamat}"></td>
+				<td th:text="${mahasiswa.tanggalLahir}"></td>
+				<td> <a th:href = "@{/showFormForUpdate/{id}(id=${mahasiswa.id})}" class="btn btn-info"> Update Student </a> 
+					<a th:href = "@{/deleteMahasiswa/{id}(id=${mahasiswa.id})}" class="btn btn-danger"> Delete Student </a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div th:if = "${totalPages > 1}">
+		<div class = "row col-sm-10">
+			<div class = "col-sm-2">
+				Total Rows: [[${totalItems}]]
+			</div>
+			<div class = "col-sm-1">
+				<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+					<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${SortDir}}">[[${i}]]</a>
+					<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+				</span>
+			</div>
+			<div class = "col-sm-1">
+				<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${SortDir}}"> Next </a>
+				<span th:unless="${currentPage < totalPages}"> Next </span>
+			</div>
+			
+			<div class="col-sm-1">
+				<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${SortDir}}"> Last </a>
+				<span th:unless="${currentPage < totalPages}"> Last </span>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

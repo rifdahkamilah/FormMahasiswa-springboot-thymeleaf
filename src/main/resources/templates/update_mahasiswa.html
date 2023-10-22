@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Student Data</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+	
+</head>
+<body style="background-color: thistle; font-family: Cambria, sans-serif;">
+		<div class="container" align="center">
+		<h1 style="color: darkmagenta;" class="text-uppercase"> Student Data </h1>
+		<hr>
+		<h2 style="color: rebeccapurple;"> This form is used to update student data </h2>
+		<hr>
+		<h3 style="color: mediumpurple;"> Get started with your personal data </h3>
+		<hr>
+		
+		<form action="#" th:action="@{/saveMahasiswa}" th:object="${mahasiswa}" 
+			method="POST">
+			
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+			
+			<p>Name</p>
+			<input type="text" th:field="*{nama}" class="form-control mb-4 col-4">
+			
+			<p>Student ID Number</p>
+			<input type="text" th:field="*{nim}" class="form-control mb-4 col-4">
+			
+			<p>Address</p>
+			<input type="text" th:field="*{alamat}" class="form-control mb-4 col-4">
+				
+			<p>Date of Birth</p>
+			<input type="text" th:field="*{tanggalLahir}" class="form-control mb-4 col-4">
+				
+			<button type="submit" class="btn btn-success col-2"> Update Student </button>	
+		</form>
+		
+		<hr>
+		
+		<a th:href = "@{/}"> Back to Student Data </a>
+		
+	</div>
+
+</body>
+</html>
